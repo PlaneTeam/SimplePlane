@@ -5,7 +5,10 @@
 
 class Enemy :public Character {
     public:
-    Enemy() { std::cout << "Enemy!" << std::endl; }
+        Enemy() { std::cout << "Enemy!" << std::endl; }
+        virtual void move();
+        virtual void shoot();
+        virtual void beShooted();
 };
 
 #endif

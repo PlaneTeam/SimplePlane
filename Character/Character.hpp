@@ -3,7 +3,16 @@
 
 class Character {
     public:
-    Character() { std::cout << "Character!" << std::endl; }
+    	enum Bullet{player,enemy};
+        Character(){ std::cout << "Character!" << std::endl; }
+        virtual ~Character();
+        virtual void move();
+        virtual void shoot();
+        virtual void beShooted();
+        void isDead();
+    private:
+    	int HP;
+    	enum Bullet bullet;
 };
 
 #endif
