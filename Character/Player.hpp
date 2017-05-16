@@ -1,7 +1,7 @@
 #ifndef PLAYER_HPP_
 #define PLAYER_HPP_
 
-#include "character.hpp"
+#include "Character.hpp"
 
 class Player :public Character {
     public:
@@ -9,6 +9,7 @@ class Player :public Character {
         virtual void move();
         virtual void shoot();
         virtual void beShooted();
+        virtual void isDead();
 };
 
 #endif

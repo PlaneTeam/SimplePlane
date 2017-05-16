@@ -9,6 +9,7 @@ class Enemy :public Character {
         virtual void move();
         virtual void shoot();
         virtual void beShooted();
+        virtual void isDead();
 };
 
 #endif
