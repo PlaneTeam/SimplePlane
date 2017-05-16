@@ -4,6 +4,7 @@
 #include "../Character/Player.hpp"
 #include "../Character/Enemy.hpp"
 
+#include <vector>
 #define DISALLOW_COPY_AND_ASSIGN(TypeName) \
   TypeName(const TypeName&);               \
   void operator=(const TypeName&)
@@ -16,10 +17,12 @@ class SceneMap :public Scene {
         Enemy e1;
     }
     void addEnemy();
+    void addBullet();
     void addScores();
     void timeCount();
     void printMap();
-    bool isOver();
+    void isOver();
+    //input:改变player坐标，发射子弹？ 
     static SceneMap* getInstance();
     
     private:
@@ -27,6 +30,8 @@ class SceneMap :public Scene {
     	//time
     	bool gameOver;
         static SceneMap* _instance;
+        vector<Bullet> bullet;
+        vector<Enemy> enemy;
         SceneMap(){}//构造函数
         ~SceneMap() {}
         DISALLOW_COPY_AND_ASSIGN(SceneMap);

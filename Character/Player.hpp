@@ -5,11 +5,11 @@
 
 class Player :public Character {
     public:
-        Player() { std::cout << "Player!" << std::endl; }
-        virtual void move();
-        virtual void shoot();
+        Player();
+        void move(int, int);
+        virtual void shoot(SceneMap* );
         virtual void beShooted();
-        virtual void isDead();
+        virtual void isDead(SceneMap* );
 };
 
 #endif
