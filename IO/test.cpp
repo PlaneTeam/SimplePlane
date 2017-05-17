@@ -13,13 +13,17 @@ int main() {
     switch (var) {
         case 0:
         while (true) {
-            if (Input::trigger(Input::C)) {
+            Graphics::update();
+            Input::update();
+            if (Input::trigger(Input::LSHIFT) && Input::trigger(Input::C)) {
                 cout << "Your always press C" << endl;
             }
             Sleep(100);
         }
         case 1:
         while (true) {
+            Graphics::update();
+            Input::update();
             if (Input::press(Input::C)) {
                 cout << "Your press C" << endl;
             }
