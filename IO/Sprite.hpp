@@ -4,26 +4,42 @@
 #include <windows.h>
 #include <cstdio>
 
+/*  Sprite类: 精灵类, 处理精灵储存图片输出
+ *
+ *  ## method ##
+ *  Sprite(int _real_x, int _real_y, int _width, int _height, char** _bitmap, char** _foreground);
+ *      // 构造函数, 精灵的初始化
+ *      @param: _real_x 绝对x坐标, _real_y 绝对y坐标, _width 精灵宽度, _height 精灵高度, _bitmap 精灵图, _foreground 精灵前景色
+ *
+ *  void print(); // 输出精灵, 不建议使用
+ *  
+ *  void setRealPosition(int _real_x, int _real_y); // 设置精灵绝对x,y坐标
+ *      @param: _real_x 绝对x坐标, _real_y 绝对y坐标
+ */
 class Sprite {
     private:
     static HANDLE console_handle;
     char** bitmap;
-    short width;
-    short height;
-    short real_x;
-    short real_y;
+    char** foreground;
+    int width;
+    int height;
+    int real_x;
+    int real_y;
 
     public:
-    Sprite(short _real_x, short _real_y, short _width, short _height, char** _bitmap) {
+    Sprite(int _real_x, int _real_y, int _width, int _height, char** _bitmap, char** _foreground) {
         real_x = _real_x;
         real_y = _real_y;
         width = _width;
         height = _height;
         bitmap = new char* [height];
+        foreground = new char* [height];
         for (int i = 0; i < height; i++) {
             bitmap[i] = new char [width];
+            foreground[i] = new char [width];
             for (int j = 0; j < width; j++) {
                 bitmap[i][j] = _bitmap[i][j];
+                foreground[i][j] = _foreground[i][j];
             }
         }
     }
@@ -31,17 +47,25 @@ class Sprite {
     ~Sprite() {
         for (int i = 0; i < height; i++) {
             delete [] bitmap[i];
+            delete []  foreground[i];
         }
         delete [] bitmap;
+        delete [] foreground;
     }
 
     void print() {
         for (int i = 0; i < height; i++) {
-            SetConsoleCursorPosition(console_handle, COORD{real_x, static_cast<short>(real_y + i)});
+            SetConsoleCursorPosition(console_handle, COORD{static_cast<short>(real_x), static_cast<short>(real_y + i)});
             for (int j = 0; j < width; j++) {
+                SetConsoleTextAttribute(console_handle, foreground[i][j] & 0xf);
                 putchar(bitmap[i][j]);
             }
         }
+    }
+
+    void setRealPosition(int _real_x, int _real_y) {
+        real_x = _real_x;
+        real_y = _real_y;
     }
 };
 
