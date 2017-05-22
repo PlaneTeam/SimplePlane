@@ -8,6 +8,9 @@
 #include <ctime>
 #include <ratio>
 #include <chrono>
+#include <vector>
+#include "Window.hpp"
+#include "SpriteBase.hpp"
 
 using namespace std;
 using namespace std::chrono;
@@ -21,9 +24,14 @@ class Graphics {
   }
 
   static void update() {
-      system("cls");
-    cerr << Graphics::getInstance()->getFrame() << endl;
+    //system("cls");
+    //cerr << Graphics::getInstance()->getFrame() << endl;
     Graphics::getInstance()->controlFrame();
+    Window::cursorDisable();
+    Window::windowInfoDisable();
+    for (std::vector<SpriteBase*>::iterator it = sprite.begin(); it != sprite.end(); it++) {
+      (*it)->print();
+    }
   }
 
   static Graphics* getInstance() {
@@ -41,6 +49,19 @@ class Graphics {
   void setFrame(int num) {
     tagFrame = num;
     sleepTime = (1000 / (double)tagFrame);
+  }
+
+  void pushSprite(SpriteBase* s) {
+    sprite.push_back(s);
+  }
+
+  void popSprite(SpriteBase* s) {
+    for (std::vector<SpriteBase*>::iterator it = sprite.begin(); it != sprite.end(); it++) {
+      if (*it == s) {
+        sprite.erase(it);
+        return;
+      }
+    }
   }
 
  private:
@@ -64,7 +85,11 @@ class Graphics {
   int sleepTime;
   int frameNum;
   int tagFrame;
+  static std::vector<SpriteBase*> sprite;
 };
 Graphics* Graphics::Ins = NULL;
+std::vector<SpriteBase*> Graphics::sprite;
+
+
 
 #endif

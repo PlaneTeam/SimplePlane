@@ -1,5 +1,5 @@
+#include "Input.hpp"
 #include "Sprite.hpp"
-#include <conio.h>
 
 int main() {
     char** map;
@@ -15,6 +15,24 @@ int main() {
         }
     }
     Sprite s(10, 3, 4, 3, map, foreground);
-    s.print();
+    Input::init();
+    Graphics::getInstance()->setFrame(120);
+    while (true) {
+        //system("cls");
+        Graphics::update();
+        Input::update();
+        if (Input::trigger(Input::W)) {
+            s.setRealPosition(s.getRealX(), s.getRealY()-1);
+        }
+        if (Input::trigger(Input::A)) {
+            s.setRealPosition(s.getRealX()-1, s.getRealY());
+        }
+        if (Input::trigger(Input::S)) {
+            s.setRealPosition(s.getRealX(), s.getRealY()+1);
+        }
+        if (Input::trigger(Input::D)) {
+            s.setRealPosition(s.getRealX()+1, s.getRealY());
+        }
+    }
     system("Pause");
 }

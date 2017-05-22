@@ -3,6 +3,8 @@
 
 #include <windows.h>
 #include <cstdio>
+#include "SpriteBase.hpp"
+#include "Graphics.hpp"
 
 /*  Sprite类: 精灵类, 处理精灵储存图片输出
  *
@@ -16,7 +18,7 @@
  *  void setRealPosition(int _real_x, int _real_y); // 设置精灵绝对x,y坐标
  *      @param: _real_x 绝对x坐标, _real_y 绝对y坐标
  */
-class Sprite {
+class Sprite : public SpriteBase {
     private:
     static HANDLE console_handle;
     char** bitmap;
@@ -42,6 +44,7 @@ class Sprite {
                 foreground[i][j] = _foreground[i][j];
             }
         }
+        Graphics::getInstance()->pushSprite(this);
     }
 
     ~Sprite() {
@@ -51,9 +54,10 @@ class Sprite {
         }
         delete [] bitmap;
         delete [] foreground;
+        Graphics::getInstance()->popSprite(this);
     }
 
-    void print() {
+    virtual void print() {
         for (int i = 0; i < height; i++) {
             SetConsoleCursorPosition(console_handle, COORD{static_cast<short>(real_x), static_cast<short>(real_y + i)});
             for (int j = 0; j < width; j++) {
@@ -66,6 +70,14 @@ class Sprite {
     void setRealPosition(int _real_x, int _real_y) {
         real_x = _real_x;
         real_y = _real_y;
+    }
+
+    int getRealX() {
+        return real_x;
+    }
+
+    int getRealY() {
+        return real_y;
     }
 };
 

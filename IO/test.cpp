@@ -1,7 +1,7 @@
 #include <iostream>
 #include <time.h>
 #include "Input.hpp"
-#include "Graphics.hpp"
+#include "Sprite.hpp"
 using namespace std;
 
 int main() {
