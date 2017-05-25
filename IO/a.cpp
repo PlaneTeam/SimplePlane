@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Input.hpp"
 #include "Sprite.hpp"
 
@@ -16,7 +17,10 @@ int main() {
     }
     Sprite s(10, 3, 4, 3, map, foreground);
     Input::init();
-    Graphics::getInstance()->setFrame(120);
+    std::cout << "please input the frame:";
+    int n;
+    std::cin >> n;
+    Graphics::getInstance()->setFrame(n);
     while (true) {
         //system("cls");
         Graphics::update();

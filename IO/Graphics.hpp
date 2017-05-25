@@ -29,6 +29,7 @@ class Graphics {
     Graphics::getInstance()->controlFrame();
     Window::cursorDisable();
     Window::windowInfoDisable();
+    Window::cleanWindow();
     for (std::vector<SpriteBase*>::iterator it = sprite.begin(); it != sprite.end(); it++) {
       (*it)->print();
     }
