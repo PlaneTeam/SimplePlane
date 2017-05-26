@@ -3,18 +3,20 @@
 Player::Player(): Character() {
 	setHP(PLAYER_INITIAL_HP);
 	setSpeed(1);
-	setCoordinate(0,0);//ï¿½ï¿½Í¼ï¿½Ð¼ä£¿ 
+	setCoordinate(0,0);//µØÍ¼ÖÐ¼ä£¿ 
 	bullet='O'; 
 	is_dead=false;
 }
-void Player::move(int x_, int y_){//sceneï¿½ï¿½ï¿½ï¿½inputï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½xï¿½ï¿½y 
+void Player::move(int x_, int y_){//scene½ÓÊÜinput£¬µ÷ÓÃÒÆ¶¯x£¬y 
 	x+=x_;
 	y+=y_;
 }
 void Player::shoot(SceneMap* map){
+	map->addBullet();
 }
 void Player::beShooted(){
 	
 }
 void Player::isDead(SceneMap* map){
+	map->isOver();
 }
