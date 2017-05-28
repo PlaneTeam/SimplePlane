@@ -1,10 +1,15 @@
 #ifndef SPRITE_HPP_
 #define SPRITE_HPP_
 
+#include <fstream>
+#include <string>
 #include <windows.h>
 #include <cstdio>
 #include "SpriteBase.hpp"
 #include "Graphics.hpp"
+using namespace std;
+
+#define UNICODE
 
 /*  Sprite类: 精灵类, 处理精灵储存图片输出
  *
@@ -29,6 +34,37 @@ class Sprite : public SpriteBase {
     int real_y;
 
     public:
+    Sprite(int _real_x, int _real_y, string path) {
+        real_x = _real_x;
+        real_y = _real_y;
+        ifstream file;
+        file.open(path, ios::in);
+        if (!file) {
+            MessageBox(NULL, path.c_str(), "Invalid Sprite Path!", 0);
+            file.close();
+            exit(-1);
+        } else {
+            file >> width >> height;
+            bitmap = new char* [height];
+            foreground = new char* [height];
+            for (int i = 0; i < height; i++) {
+                bitmap[i] = new char [width];
+                foreground[i] = new char [width];
+                file.get();
+                for (int j = 0; j < width; j++) {
+                    bitmap[i][j] = file.get();
+                }
+                for (int j = 0; j < width; j++) {
+                    int var;
+                    file >> var;
+                    foreground[i][j] = static_cast<char>(var);
+                }
+            }
+            file.close();
+        }
+        Graphics::getInstance()->pushSprite(this);
+    }
+
     Sprite(int _real_x, int _real_y, int _width, int _height, char** _bitmap, char** _foreground) {
         real_x = _real_x;
         real_y = _real_y;
