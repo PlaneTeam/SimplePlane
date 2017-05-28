@@ -6,7 +6,7 @@
 class Enemy :public Character {
     public:
         Enemy() { std::cout << "Enemy!" << std::endl; }
-        virtual void move();
+        void move();
         virtual void shoot();
         virtual void beShooted();
         virtual void isDead();
