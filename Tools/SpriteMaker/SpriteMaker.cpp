@@ -149,7 +149,7 @@ void ModifySprite() {
     }
     cout << endl;
     cout << "Please input info such as (x, y, bitmap, foreground): " << endl;
-    cin >> x >> y >> b >> f;
+    cin >> x >> y >> b >> hex >> f >> dec;
     globe_sprite.bitmap[x][y] = b;
     globe_sprite.foreground[x][y] = static_cast<char>(f);
 }
