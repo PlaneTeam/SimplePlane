@@ -14,7 +14,7 @@ class SceneGameover:public Scene{
 		void aNewGame();
 	private:
 	    static SceneGameover* _instance;
-        SceneGameover() {}//¹¹Ôìº¯Êý
+        SceneGameover() {}//æž„é€ å‡½æ•°
         ~SceneGameover() {}
         DISALLOW_COPY_AND_ASSIGN(SceneGameover);
 };

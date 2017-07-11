@@ -22,7 +22,7 @@ class SceneMap :public Scene {
     void timeCount();
     void printMap();
     void isOver();
-    //input:¸Ä±äplayer×ø±ê£¬·¢Éä×Óµ¯£¿ 
+    //input:æ”¹å˜playeråæ ‡ï¼Œå‘å°„å­å¼¹ï¼Ÿ 
     static SceneMap* getInstance();
     
     private:
@@ -32,7 +32,7 @@ class SceneMap :public Scene {
         static SceneMap* _instance;
         vector<Bullet> bullet;
         vector<Enemy> enemy;
-        SceneMap(){}//¹¹Ôìº¯Êı
+        SceneMap(){}//æ„é€ å‡½æ•°
         ~SceneMap() {}
         DISALLOW_COPY_AND_ASSIGN(SceneMap);
 };

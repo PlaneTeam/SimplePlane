@@ -3,11 +3,11 @@
 Player::Player(): Character() {
 	setHP(PLAYER_INITIAL_HP);
 	setSpeed(1);
-	setCoordinate(0,0);//µØÍ¼ÖĞ¼ä£¿ 
+	setCoordinate(0,0);//åœ°å›¾ä¸­é—´ï¼Ÿ 
 	bullet='O'; 
 	is_dead=false;
 }
-void Player::move(int x_, int y_){//scene½ÓÊÜinput£¬µ÷ÓÃÒÆ¶¯x£¬y 
+void Player::move(int x_, int y_){//sceneæ¥å—inputï¼Œè°ƒç”¨ç§»åŠ¨xï¼Œy 
 	x+=x_;
 	y+=y_;
 }
