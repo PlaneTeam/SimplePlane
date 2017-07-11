@@ -1,6 +1,5 @@
 #include <iostream>
-#include "Input.hpp"
-#include "Sprite.hpp"
+#include "IO.hpp"
 #include "SceneStart.hpp"
 
 int main() {

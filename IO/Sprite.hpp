@@ -9,7 +9,9 @@
 #include "Graphics.hpp"
 using namespace std;
 
+#ifndef UNICODE
 #define UNICODE
+#endif
 
 /*  Sprite类: 精灵类, 处理精灵储存图片输出
  *
