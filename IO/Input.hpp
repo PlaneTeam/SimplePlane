@@ -35,7 +35,8 @@ class Input {
         A = 'A', B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z,
         NUM0 = '0', NUM1, NUM2, NUM3, NUM4, NUM5, NUM6, NUM7, NUM8, NUM9,
         NUMPAD0 = VK_NUMPAD0, NUMPAD1, NUMPAD2, NUMPAD3, NUMPAD4, NUMPAD5, NUMPAD6, NUMPAD7, NUMPAD8, NUMPAD9,
-        LSHIFT = VK_LSHIFT
+        LSHIFT = VK_LSHIFT,
+        ENTER = VK_RETURN
     };
 
     static bool init() {

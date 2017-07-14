@@ -14,28 +14,29 @@
  */
 class Window {
     public:
+    static HANDLE handle;
+    static SMALL_RECT window;
+
     static void cursorDisable() {
         CONSOLE_CURSOR_INFO cursor_info;
         cursor_info.dwSize = 1;
         cursor_info.bVisible = false;
-        SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor_info);
+        SetConsoleCursorInfo(handle, &cursor_info);
     }
 
     static void windowInfoDisable() {
-        SMALL_RECT window;
-        window.Left = 0;
-        window.Top = 0;
-        window.Right = 80;
-        window.Bottom = 25;
-        SetConsoleWindowInfo(GetStdHandle(STD_OUTPUT_HANDLE), true, &window);
+        SetConsoleWindowInfo(handle, true, &window);
     }
 
     static void cleanWindow() {
         DWORD charsWritten;
         CONSOLE_SCREEN_BUFFER_INFO info;
-        GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &info);
-        FillConsoleOutputCharacter(GetStdHandle(STD_OUTPUT_HANDLE), ' ', info.dwSize.X * info.dwSize.Y, COORD{0,0}, &charsWritten);
+        GetConsoleScreenBufferInfo(handle, &info);
+        FillConsoleOutputCharacter(handle, ' ', info.dwSize.X * info.dwSize.Y, COORD{0,0}, &charsWritten);
     }
 };
+
+HANDLE Window::handle = GetStdHandle(STD_OUTPUT_HANDLE);
+SMALL_RECT Window::window = { Left: 0, Top: 0, Right: 80, Bottom: 25 };
 
 #endif

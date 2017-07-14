@@ -5,6 +5,7 @@
 #include <string>
 #include <windows.h>
 #include <cstdio>
+#include "Bitmap.hpp"
 #include "SpriteBase.hpp"
 #include "Graphics.hpp"
 using namespace std;
@@ -27,80 +28,43 @@ using namespace std;
  */
 class Sprite : public SpriteBase {
     private:
-    static HANDLE console_handle;
-    char** bitmap;
-    char** foreground;
-    int width;
-    int height;
     int real_x;
     int real_y;
+    Bitmap* pic;
 
     public:
     Sprite(int _real_x, int _real_y, string path) {
         real_x = _real_x;
         real_y = _real_y;
-        ifstream file;
-        file.open(path, ios::in);
-        if (!file) {
-            MessageBox(NULL, path.c_str(), "Invalid Sprite Path!", 0);
-            file.close();
-            exit(-1);
-        } else {
-            file >> width >> height;
-            bitmap = new char* [height];
-            foreground = new char* [height];
-            for (int i = 0; i < height; i++) {
-                bitmap[i] = new char [width];
-                foreground[i] = new char [width];
-                file.get();
-                for (int j = 0; j < width; j++) {
-                    bitmap[i][j] = file.get();
-                }
-                for (int j = 0; j < width; j++) {
-                    int var;
-                    file >> var;
-                    foreground[i][j] = static_cast<char>(var);
-                }
-            }
-            file.close();
-        }
+        pic = new Bitmap(path);
+        Graphics::getInstance()->pushSprite(this);
+    }
+
+    Sprite(int _real_x, int _real_y, int _width, int _height, string str = "") {
+        real_x = _real_x;
+        real_y = _real_y;
+        pic = new Bitmap(_width, _height, str);
         Graphics::getInstance()->pushSprite(this);
     }
 
     Sprite(int _real_x, int _real_y, int _width, int _height, char** _bitmap, char** _foreground) {
         real_x = _real_x;
         real_y = _real_y;
-        width = _width;
-        height = _height;
-        bitmap = new char* [height];
-        foreground = new char* [height];
-        for (int i = 0; i < height; i++) {
-            bitmap[i] = new char [width];
-            foreground[i] = new char [width];
-            for (int j = 0; j < width; j++) {
-                bitmap[i][j] = _bitmap[i][j];
-                foreground[i][j] = _foreground[i][j];
-            }
-        }
+        pic = new Bitmap(_width, _height, _bitmap, _foreground);
         Graphics::getInstance()->pushSprite(this);
     }
 
     ~Sprite() {
-        for (int i = 0; i < height; i++) {
-            delete [] bitmap[i];
-            delete []  foreground[i];
-        }
-        delete [] bitmap;
-        delete [] foreground;
+        delete pic;
         Graphics::getInstance()->popSprite(this);
     }
 
     virtual void print() {
-        for (int i = 0; i < height; i++) {
-            SetConsoleCursorPosition(console_handle, COORD{static_cast<short>(real_x), static_cast<short>(real_y + i)});
-            for (int j = 0; j < width; j++) {
-                SetConsoleTextAttribute(console_handle, foreground[i][j] & 0xf);
-                putchar(bitmap[i][j]);
+        for (int i = 0; i < pic->height; i++) {
+            SetConsoleCursorPosition(Window::handle, COORD{static_cast<short>(real_x), static_cast<short>(real_y + i)});
+            for (int j = 0; j < pic->width; j++) {
+                SetConsoleTextAttribute(Window::handle, pic->foreground[i][j] & 0xf);
+                putchar(pic->bitmap[i][j]);
             }
         }
     }
@@ -117,8 +81,10 @@ class Sprite : public SpriteBase {
     int getRealY() {
         return real_y;
     }
-};
 
-HANDLE Sprite::console_handle = GetStdHandle(STD_OUTPUT_HANDLE);
+    Bitmap& bitmap() {
+        return *pic;
+    }
+};
 
 #endif
