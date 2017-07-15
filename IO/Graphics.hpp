@@ -88,9 +88,5 @@ class Graphics {
   int tagFrame;
   static std::vector<SpriteBase*> sprite;
 };
-Graphics* Graphics::Ins = NULL;
-std::vector<SpriteBase*> Graphics::sprite;
-
-
 
 #endif

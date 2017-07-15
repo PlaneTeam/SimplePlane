@@ -74,11 +74,19 @@ class Sprite : public SpriteBase {
         real_y = _real_y;
     }
 
-    int getRealX() {
+    void setRealX(int _real_x) {
+        real_x = _real_x;
+    }
+
+    void setRealY(int _real_y) {
+        real_y = _real_y;
+    }
+
+    int getRealX() const {
         return real_x;
     }
 
-    int getRealY() {
+    int getRealY() const {
         return real_y;
     }
 

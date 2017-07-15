@@ -99,6 +99,8 @@ bool LoadFile() {
             for (int j = 0; j < globe_sprite.width; j++) {
                 globe_sprite.bitmap[i][j] = file.get();
             }
+        }
+        for (int i = 0; i < globe_sprite.height; i++) {
             for (int j = 0; j < globe_sprite.width; j++) {
                 int var;
                 file >> var;
@@ -122,6 +124,8 @@ bool SaveFile() {
                 file << globe_sprite.bitmap[i][j];
             }
             file << endl;
+        }
+        for (int i = 0; i < globe_sprite.height; i++) {
             for (int j = 0; j < globe_sprite.width - 1; j++) {
                 file << static_cast<int>(globe_sprite.foreground[i][j]) << ' ';
             }
@@ -150,8 +154,8 @@ void ModifySprite() {
     cout << endl;
     cout << "Please input info such as (x, y, bitmap, foreground): " << endl;
     cin >> x >> y >> b >> hex >> f >> dec;
-    globe_sprite.bitmap[x][y] = b;
-    globe_sprite.foreground[x][y] = static_cast<char>(f);
+    globe_sprite.bitmap[y][x] = b;
+    globe_sprite.foreground[y][x] = static_cast<char>(f);
 }
 
 int main() {
